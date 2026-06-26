@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Markdown bài viết */
+.article-prose h2{font-size:1.5rem;font-weight:600;margin-top:2rem}
+.article-prose h3{font-size:1.25rem;font-weight:600;margin-top:1.5rem}
+.article-prose p{margin-top:1rem;line-height:1.75}
+.article-prose ul{margin-top:1rem;padding-left:1.5rem;list-style:disc}
+.article-prose ol{margin-top:1rem;padding-left:1.5rem;list-style:decimal}
+.article-prose li{margin-top:.25rem}
+.article-prose blockquote{margin-top:1.25rem;border-left:4px solid #9c742f;background:#fbf7ee;padding:.5rem 0 .5rem 1rem;font-style:italic;color:#4a4234}
+.article-prose a{color:#8a2b22;text-decoration:underline}
+.article-prose strong{font-weight:600}
