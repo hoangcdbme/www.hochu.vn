@@ -1,37 +1,124 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ===================================================================
+   HỆ THỐNG THIẾT KẾ — Dòng họ Chử Việt Nam
+   Con dấu triện đỏ son trên nền giấy ngà (theo DESIGN_SYSTEM.md / ECC)
+   Đỏ son = primary · Vàng hổ phách = accent · Giấy ngà ấm = nền
+=================================================================== */
+@theme {
+  /* PRIMARY — Đỏ son / Vermilion (mực ấn) */
+  --color-primary-50:  #FBEEEB;
+  --color-primary-100: #F6D8D1;
+  --color-primary-200: #ECB1A4;
+  --color-primary-300: #E08A76;
+  --color-primary-400: #D5634F;
+  --color-primary-500: #C5402E;
+  --color-primary-600: #A8331F;
+  --color-primary-700: #872817;
+  --color-primary-800: #631C10;
+  --color-primary-900: #41120A;
+
+  /* ACCENT — Vàng hổ phách / Amber (giấy ấn) */
+  --color-accent-50:  #FDF6EA;
+  --color-accent-100: #FAE9CC;
+  --color-accent-200: #F3D08F;
+  --color-accent-300: #ECB85C;
+  --color-accent-400: #E89A1C;
+  --color-accent-500: #CF860F;
+  --color-accent-600: #A66A0A;
+  --color-accent-700: #7C4F08;
+
+  /* SECONDARY — Nâu trầm (gỗ/mực tàu) */
+  --color-secondary-500: #5A3A22;
+  --color-secondary-700: #3D2616;
+  --color-secondary-900: #261509;
+
+  /* NEUTRAL — giấy ngà ấm → than ấm */
+  --color-paper:   #FBF7EF;
+  --color-surface: #FFFFFF;
+  --color-sunken:  #F3ECDD;
+  --color-line:    #E4D9C4;
+  --color-ink:     #2A2018;
+  --color-ink-soft:#6B5D4C;
+
+  /* TRẠNG THÁI */
+  --color-success: #2E7D4F;
+  --color-warning: #C98A12;
+  --color-danger:  #B3261E;
+
+  /* Fonts (biến do next/font cấp ở <html>) */
+  --font-sans:  var(--font-be-vietnam), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-noto-serif), Georgia, "Times New Roman", serif;
+  --font-mono:  ui-monospace, "JetBrains Mono", monospace;
+
+  /* Bóng ấm (ám vàng nhẹ thay vì xám lạnh) */
+  --shadow-soft: 0 1px 2px rgba(90,58,34,.08);
+  --shadow-card: 0 4px 12px rgba(90,58,34,.10);
+  --shadow-lift: 0 12px 32px rgba(90,58,34,.14);
+  --shadow-seal: 0 6px 20px rgba(197,64,46,.25);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
 }
 
-/* Markdown bài viết */
-.article-prose h2{font-size:1.5rem;font-weight:600;margin-top:2rem}
-.article-prose h3{font-size:1.25rem;font-weight:600;margin-top:1.5rem}
-.article-prose p{margin-top:1rem;line-height:1.75}
-.article-prose ul{margin-top:1rem;padding-left:1.5rem;list-style:disc}
-.article-prose ol{margin-top:1rem;padding-left:1.5rem;list-style:decimal}
-.article-prose li{margin-top:.25rem}
-.article-prose blockquote{margin-top:1.25rem;border-left:4px solid #9c742f;background:#fbf7ee;padding:.5rem 0 .5rem 1rem;font-style:italic;color:#4a4234}
-.article-prose a{color:#8a2b22;text-decoration:underline}
-.article-prose strong{font-weight:600}
+/* Hào quang đỏ quanh huy hiệu con dấu */
+.shadow-seal { box-shadow: var(--shadow-seal); }
+
+/* Tiêu đề mục có "gạch khắc đỏ" gợi nét triện */
+.tick-heading { position: relative; padding-left: 0; }
+.tick-heading::before {
+  content: ""; display: block; width: 40px; height: 4px; border-radius: 2px;
+  background: var(--color-primary-500); margin-bottom: .65rem;
+}
+
+/* Gradient con dấu & mực ấn */
+.bg-seal-gradient { background: radial-gradient(circle at 32% 30%, #F3B544 0%, #E89A1C 45%, #CF860F 100%); }
+.bg-ink-gradient  { background: linear-gradient(135deg, #C5402E 0%, #872817 100%); }
+
+/* Hoa văn lưới mờ kiểu giấy dó cho hero */
+.paper-grain {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(122,79,8,.06) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Focus ring đỏ son cho khả năng truy cập */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(197,64,46,.35);
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* ===== Markdown bài viết (đồng bộ token) ===== */
+.article-prose { color: var(--color-ink); font-size: 1.0625rem; line-height: 1.75; }
+.article-prose h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; line-height: 1.25; margin-top: 2.25rem; color: var(--color-secondary-900); }
+.article-prose h3 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; margin-top: 1.75rem; color: var(--color-secondary-900); }
+.article-prose p { margin-top: 1.1rem; }
+.article-prose ul { margin-top: 1.1rem; padding-left: 1.5rem; list-style: disc; }
+.article-prose ol { margin-top: 1.1rem; padding-left: 1.5rem; list-style: decimal; }
+.article-prose li { margin-top: .35rem; }
+.article-prose li::marker { color: var(--color-primary-500); }
+.article-prose img { border-radius: 12px; margin-top: 1.25rem; box-shadow: var(--shadow-card); }
+.article-prose blockquote {
+  margin-top: 1.4rem; border-left: 4px solid var(--color-accent-400);
+  background: var(--color-sunken); padding: .75rem 0 .75rem 1.1rem;
+  font-style: italic; color: var(--color-secondary-700); border-radius: 0 8px 8px 0;
+}
+.article-prose a { color: var(--color-primary-700); text-decoration: underline; text-underline-offset: 2px; }
+.article-prose a:hover { color: var(--color-primary-600); }
+.article-prose strong { font-weight: 700; color: var(--color-secondary-900); }
+.article-prose hr { margin: 2rem 0; border: 0; border-top: 1px solid var(--color-line); }
+.article-prose table { width: 100%; margin-top: 1.25rem; border-collapse: collapse; font-size: .95rem; }
+.article-prose th, .article-prose td { border: 1px solid var(--color-line); padding: .5rem .75rem; text-align: left; }
+.article-prose th { background: var(--color-sunken); font-weight: 600; }

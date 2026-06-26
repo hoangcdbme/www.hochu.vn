@@ -8,65 +8,101 @@ export default async function Home() {
   const [featured, ...rest] = articles;
 
   return (
-    <main className="mx-auto max-w-5xl px-5">
-      {/* Hero */}
-      <section className="py-12 text-center">
-        <p className="font-serif text-sm uppercase tracking-[0.2em] text-[#9c742f]">Hệ sinh thái số dòng tộc</p>
-        <h1 className="mt-3 font-serif text-4xl font-bold tracking-tight sm:text-5xl">Dòng họ Chử Việt Nam</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-[#4a4234]">
-          Nơi kết nối con cháu họ Chử khắp mọi miền — giới thiệu cội nguồn, lưu giữ tư liệu,
-          lan tỏa tin tức và các giá trị văn hóa của dòng tộc.
-        </p>
+    <main>
+      {/* ===== Hero nghi lễ ===== */}
+      <section className="paper-grain relative overflow-hidden border-b border-line">
+        <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:py-20">
+          <img src="/seal.svg" alt="Con dấu Dòng họ Chử Việt Nam" width={112} height={112}
+               className="mx-auto h-28 w-28 rounded-full shadow-seal" />
+          <h1 className="mt-7 font-serif text-4xl font-bold leading-tight text-secondary-900 sm:text-5xl">
+            Hệ sinh thái số <span className="text-primary-600">Dòng họ Chử</span> Việt Nam
+          </h1>
+          <p className="mt-4 text-sm font-medium uppercase tracking-[0.22em] text-accent-700">
+            Kết nối · Phát triển · Thịnh vượng
+          </p>
+          <p className="mx-auto mt-5 max-w-xl text-ink-soft">
+            Nơi hội tụ con cháu họ Chử khắp mọi miền — lưu giữ cội nguồn, lan tỏa tin tức
+            và tôn vinh những giá trị văn hóa của dòng tộc.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link href="/chuyen-muc/tin-tuc"
+                  className="rounded-md bg-primary-500 px-6 py-3 font-medium text-paper transition hover:bg-primary-600">
+              Đọc bài viết
+            </Link>
+            <Link href="/chuyen-muc/gioi-thieu"
+                  className="rounded-md border border-primary-500 px-6 py-3 font-medium text-primary-700 transition hover:bg-primary-50">
+              Giới thiệu dòng họ
+            </Link>
+          </div>
+        </div>
       </section>
 
-      {!featured && (
-        <p className="rounded-lg border border-black/10 bg-[#fbf7ee] p-6 text-center text-[#7a6f5b]">
-          Chưa có bài viết. (Sau khi chạy schema + thêm bài, nội dung sẽ hiển thị tại đây.)
-        </p>
-      )}
+      {/* ===== Dải câu đối / gia huấn ===== */}
+      <section className="bg-ink-gradient">
+        <div className="mx-auto max-w-4xl px-5 py-10 text-center">
+          <p className="font-serif text-xl italic leading-relaxed text-accent-100 sm:text-2xl">
+            “Cây có cội, nước có nguồn — con cháu họ Chử một lòng hướng về tiên tổ.”
+          </p>
+        </div>
+      </section>
 
-      {/* Featured */}
-      {featured && (
-        <section className="mb-10">
-          <Link href={`/bai-viet/${featured.slug}`} className="block rounded-2xl border border-black/10 bg-[#fbf7ee] p-7 transition hover:border-[#8a2b22]/40">
-            <span className="text-xs uppercase tracking-wider text-[#9c742f]">Bài nổi bật</span>
-            <h2 className="mt-2 font-serif text-2xl font-semibold sm:text-3xl">{featured.title}</h2>
-            {featured.excerpt && <p className="mt-2 max-w-3xl text-[#4a4234]">{featured.excerpt}</p>}
-            <span className="mt-3 inline-block text-sm text-[#8a2b22]">Đọc tiếp →</span>
-          </Link>
-        </section>
-      )}
+      <div className="mx-auto max-w-5xl px-5">
+        {!featured && (
+          <p className="my-12 rounded-lg border border-line bg-sunken p-6 text-center text-ink-soft">
+            Nội dung đang được cập nhật. Vui lòng quay lại sau.
+          </p>
+        )}
 
-      {/* Latest grid */}
-      {rest.length > 0 && (
-        <section className="mb-12">
-          <h2 className="mb-4 font-serif text-xl font-semibold">Mới cập nhật</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((a) => (
-              <Link key={a.id} href={`/bai-viet/${a.slug}`} className="flex flex-col rounded-xl border border-black/10 bg-[#fbf7ee] p-5 transition hover:border-[#8a2b22]/40">
-                <h3 className="font-serif text-lg font-semibold leading-snug">{a.title}</h3>
-                {a.excerpt && <p className="mt-2 line-clamp-3 text-sm text-[#4a4234]">{a.excerpt}</p>}
-                <span className="mt-auto pt-3 text-xs text-[#7a6f5b]">{fmtDate(a.published_at)}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+        {/* ===== Bài nổi bật ===== */}
+        {featured && (
+          <section className="py-12">
+            <h2 className="tick-heading font-serif text-2xl font-bold text-secondary-900">Bài nổi bật</h2>
+            <Link href={`/bai-viet/${featured.slug}`}
+                  className="group mt-5 block rounded-2xl border border-line bg-surface p-7 shadow-soft transition hover:shadow-card">
+              <span className="text-xs font-medium uppercase tracking-wider text-accent-700">Tiêu điểm</span>
+              <h3 className="mt-2 font-serif text-2xl font-semibold leading-snug text-secondary-900 transition group-hover:text-primary-600 sm:text-3xl">
+                {featured.title}
+              </h3>
+              {featured.excerpt && <p className="mt-3 max-w-3xl text-ink-soft">{featured.excerpt}</p>}
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary-700">Đọc tiếp →</span>
+            </Link>
+          </section>
+        )}
 
-      {/* Categories */}
-      {categories.length > 0 && (
-        <section className="mb-4">
-          <h2 className="mb-4 font-serif text-xl font-semibold">Chuyên mục</h2>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {categories.map((c) => (
-              <Link key={c.id} href={`/chuyen-muc/${c.slug}`} className="rounded-xl border border-black/10 bg-[#fbf7ee] p-4 transition hover:border-[#8a2b22]/40">
-                <div className="font-serif font-semibold">{c.name}</div>
-                {c.description && <div className="mt-1 text-sm text-[#7a6f5b]">{c.description}</div>}
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+        {/* ===== Mới cập nhật ===== */}
+        {rest.length > 0 && (
+          <section className="pb-14">
+            <h2 className="tick-heading font-serif text-2xl font-bold text-secondary-900">Mới cập nhật</h2>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {rest.map((a) => (
+                <Link key={a.id} href={`/bai-viet/${a.slug}`}
+                      className="group flex flex-col rounded-xl border border-line bg-surface p-5 shadow-soft transition hover:shadow-card">
+                  <h3 className="font-serif text-lg font-semibold leading-snug text-secondary-900 transition group-hover:text-primary-600">{a.title}</h3>
+                  {a.excerpt && <p className="mt-2 line-clamp-3 text-sm text-ink-soft">{a.excerpt}</p>}
+                  <span className="mt-auto pt-4 font-mono text-xs text-ink-soft">{fmtDate(a.published_at)}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ===== Chuyên mục ===== */}
+        {categories.length > 0 && (
+          <section className="pb-16">
+            <h2 className="tick-heading font-serif text-2xl font-bold text-secondary-900">Chuyên mục</h2>
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
+              {categories.map((c) => (
+                <Link key={c.id} href={`/chuyen-muc/${c.slug}`}
+                      className="group rounded-xl border border-line bg-sunken p-5 transition hover:border-primary-300 hover:bg-surface hover:shadow-card">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-seal-gradient font-serif text-xl font-bold text-secondary-900 shadow-soft">C</span>
+                  <div className="mt-3 font-serif text-lg font-semibold text-secondary-900 transition group-hover:text-primary-600">{c.name}</div>
+                  {c.description && <div className="mt-1 text-sm text-ink-soft">{c.description}</div>}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </main>
   );
 }
